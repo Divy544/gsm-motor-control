@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSM-Based Motor Control System Using Arduino Uno</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Government Polytechnic Himatnagar</h1>
+            <h2>GSM-Based Motor Control System Using Arduino Uno</h2>
+            <h3>Group Members:</h3>
+            <ul>
+                <li>Patel Divy P. - Enrollment No: 236248309013</li>
+                <li>Patel Ravi D. - Enrollment No: 236248309014</li>
+                <li>Patel Nil V. - Enrollment No: 216240309021</li>
+                <li>Trivedi Raj G. - Enrollment No: 216240309006</li>
+            </ul>
+            <p>Date: 27.06.2024 to 07.08.2024</p>
+        </header>
+        <section>
+            <h2>1. Introduction</h2>
+            <p>Creating a GSM-based motor control system using an Arduino Uno is a great project that combines the use of GSM modules for remote communication and control with motor control via the Arduino. The main objective of this project is to develop a system that allows users to control motors remotely using GSM technology, which can be useful in various applications such as industrial automation, home automation, and agricultural automation.</p>
+        </section>
+        <section>
+            <h2>2. Components Required</h2>
+            <ul>
+                <li>Arduino Uno: A microcontroller board based on the ATmega328P.</li>
+                <li>GSM Module (SIM800/900): A GSM/GPRS module that can send and receive SMS and calls.</li>
+                <li>Motor Driver (L298N): A dual H-bridge motor driver module.</li>
+                <li>DC Motor: A motor to be controlled.</li>
+                <li>Power Supply: A 12V power supply for the motor and a 5V supply for the Arduino.</li>
+                <li>Connecting Wires: Various jumper wires for connections.</li>
+            </ul>
+        </section>
+        <section>
+            <h2>3. System Design</h2>
+            <h3>3.1 Block Diagram</h3>
+            <img src="path_to_block_diagram_image.jpg" alt="Block Diagram" class="diagram">
+            <h3>3.2 Circuit Diagram</h3>
+            <img src="path_to_circuit_diagram_image.jpg" alt="Circuit Diagram" class="diagram">
+        </section>
+        <section>
+            <h2>4. Working Principle</h2>
+            <p>The system works by initializing the GSM module and motor driver. When an SMS command is received by the GSM module, the Arduino Uno reads and processes the command to control the motor through the motor driver.</p>
+        </section>
+        <section>
+            <h2>5. Implementation</h2>
+            <h3>5.1 Hardware Setup</h3>
+            <ul>
+                <li>Connect the GSM module to the Arduino (TX to RX, RX to TX, VCC to 5V, GND to GND).</li>
+                <li>Connect the motor driver to the Arduino and the motor.</li>
+                <li>Ensure proper power supply connections.</li>
+            </ul>
+            <h3>5.2 Software Code</h3>
+            <pre><code>
+#include &lt;SoftwareSerial.h&gt;
+
+SoftwareSerial mySerial(7, 8); // RX, TX
+const int motorPin1 = 9;
+const int motorPin2 = 10;
+
+void setup() {
+    pinMode(motorPin1, OUTPUT);
+    pinMode(motorPin2, OUTPUT);
+    mySerial.begin(9600);
+    Serial.begin(9600);
+}
+
+void loop() {
+    if (mySerial.available()) {
+        String command = mySerial.readString();
+        Serial.println(command);
+        if (command.indexOf("START") != -1) {
+            digitalWrite(motorPin1, HIGH);
+            digitalWrite(motorPin2, LOW);
+        } else if (command.indexOf("STOP") != -1) {
+            digitalWrite(motorPin1, LOW);
+            digitalWrite(motorPin2, LOW);
+        }
+    }
+}
+            </code></pre>
+        </section>
+        <section>
+            <h2>6. Testing and Results</h2>
+            <h3>6.1 Testing Procedure</h3>
+            <ul>
+                <li>Send an SMS command "START" to the GSM module.</li>
+                <li>Observe the motor starts running.</li>
+                <li>Send an SMS command "STOP" to the GSM module.</li>
+                <li>Observe the motor stops running.</li>
+            </ul>
+            <h3>6.2 Expected Results</h3>
+            <p>The motor should start and stop based on the commands received via SMS.</p>
+        </section>
+        <section>
+            <h2>7. Applications</h2>
+            <ul>
+                <li>Remote Industrial Motor Control</li>
+                <li>Home Automation</li>
+                <li>Agricultural Automation</li>
+            </ul>
+        </section>
+        <section>
+            <h2>8. Future Enhancements</h2>
+            <ul>
+                <li>Feedback Mechanism</li>
+                <li>App Integration</li>
+                <li>Enhanced Security</li>
+            </ul>
+        </section>
+        <section>
+            <h2>9. Conclusion</h2>
+            <p>This project successfully demonstrates the implementation of a GSM-based motor control system using an Arduino Uno. The system allows remote control of a motor through SMS commands, making it useful for various automation applications. Future enhancements can include feedback mechanisms, app integration, and enhanced security features.</p>
+        </section>
+    </div>
+</body>
+
+</html>
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #1a1a2e;
+    color: #e8e8e8;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    animation: fadeIn 2s ease-in-out;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #162447;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    animation: slideInDown 1s ease-in-out;
+}
+
+header h1, header h2, header h3, header p {
+    margin: 10px 0;
+    color: #e8e8e8;
+}
+
+section {
+    background-color: #0f3460;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    animation: slideInUp 1s ease-in-out;
+}
+
+h2 {
+    color: #e94560;
+    text-align: center;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background-color: #1f4068;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 2s ease-in-out;
+}
+
+pre {
+    background-color: #162447;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 2s ease-in-out;
+}
+
+code {
+    color: #e8e8e8;
+}
+
+.diagram {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
